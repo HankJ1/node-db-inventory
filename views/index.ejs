@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="banner-container">
+      <!-- <h3 class="banner-text">Brave Soldier. Outfit Thyself!</h3> -->
+      <div class="categories-container">
+        <a href='/products/armor'><div class="category">Armor</div></a>
+        <a href='/products/swords'><div class="category">Swords</div></a>
+        <a href='/products/daggers'><div class="category">Daggers</div></a>
+        <a href='/products/steeds'><div class="category">Steeds</div></a>
+      </div>
+    </div>
+
+    <div class="image-container">
+      <img src="/images/armory.jpg" class='main-image'>
+    </div>
+
+
+
+
+  </body>
+</html>

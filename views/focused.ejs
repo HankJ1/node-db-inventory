@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+
+    <div class='homepage-grid'>
+        <div class='focused-image-container'>
+            <img src="<%=props.url%>" class='focused-image'></img>
+        </div>
+        <div class='focused-description-flex'>
+            <div class='focused-description' id="title"><%= props.title%></div>
+            <div class='focused-description' id="description"><%= props.description%></div>
+            <div class='focused-price'>USD: <%= props.price%></div>
+            <button class='add-to-cart-button' onClick="edit()">Edit</button>
+            <button class='add-to-cart-button' id="update" onclick="showForm()">Update</button>
+            <!-- <button class='add-to-cart-button' onClick="edit()">Edit</button> -->
+            <br></br>
+            <a href='/products/<%=type%>'><span class="go-back">Back to Browse</span></a>
+
+            <form class='authentication-form'>
+                <label for='authentication' id='auth-label'>Password to Alter Database...</label><br/><br/>
+                <input name='authentication' class='auth-input'>
+                <button type='submit'>submit</button>
+            </form>
+
+            <span id="auth-result">Authentication Failed</span>
+            
+        </div>
+    </div>
+
+    <div class="image-container" id="cat-image2">
+        <img src="/images/armory.jpg" class='main-image'>
+      </div>
+
+</body>
+    <script>
+        let authResult = document.querySelector('#auth-result');
+        let form = document.querySelector('.authentication-form');
+        let input = document.querySelector('.auth-input');
+        let descriptors = document.querySelectorAll(".focused-description, .focused-price");
+        let editButton = document.querySelector(".add-to-cart-button");
+        const updateButton = document.querySelector("#update");
+
+        const edit = () => {
+            descriptors.forEach(item => {
+                item.contentEditable = "true";
+                item.style.outline = '1px solid white';
+            })
+            editButton.textContent = "Confirm";
+            editButton.removeAttribute("onClick");
+            editButton.onclick = confirm;
+        }
+        const confirm = () => {
+            descriptors.forEach(item => {
+                item.contentEditable = "false";
+                item.style.outline = 'none';
+            })
+            editButton.removeAttribute("onClick");
+            editButton.textContent = "Edit";
+            editButton.onclick = edit;
+        }
+        const showForm = () => form.style.display = 'initial';
+        
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let password = input.value;
+            const endpoint = '/products/<%=props.id%>';
+            let price = document.querySelector(".focused-price").textContent;
+            let description = document.querySelector("#description").textContent;
+            let title = document.querySelector("#title").textContent;
+            console.log(price);
+
+            fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    password: password,
+                    title: title,
+                    description: description,
+                    price: price
+                })
+            })
+            .then(response => response.json()) 
+            .then(data => {
+                let answer = data.answer;
+                if(answer === 'error') {
+                    authResult.style.display = 'initial';
+                } else {
+                    window.location.href = answer;
+                }
+            }) 
+            .catch(err => console.log(err));
+        })
+    </script>
+</html>

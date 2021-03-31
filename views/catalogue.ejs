@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+
+    <div class='section-header'><%= title %></div>
+
+    <div class="catalogue-grid">
+    
+
+        <% if(items.length > 0) {
+            items.forEach(item => {
+                if(type.includes(item.type) ) {
+
+                %>
+                <a href="/products/<%=item.id%>">
+                    <div class="card-container">
+                        <div class="card-image-container">
+                            <img src="<%= item.url %>" class='card-image'>
+                        </div>
+                        <div class='card-description'><%= item.title %></div>
+                        <div class='card-description card-price'>$<%= item.price %></div>
+                    </div>
+                </a>
+                <%
+                }
+            })
+        }
+        %>
+
+    </div>
+
+    <div class="image-container" id="cat-image">
+        <img src="/images/armory.jpg" class='main-image'>
+      </div>
+    
+</body>
+</html>

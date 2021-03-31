@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span><a href='/'>Back to Feed</a></span>
+            <div class="newTask-container">
+                <form method="post" action="/products/new">
+                    <div class="newTask-field" id="task-title">Title:<input class="newTask-input" type="text" name='title'></div>
+                    <div class="newTask-field" id="task-title">Type:<input class="newTask-input" type="text" name='type'></div>
+                    <div class="newTask-field" id="task-title">Price:<input class="newTask-input" type='text' name='price'></div>
+                    <div class="newTask-field" id="task-extraDetails">Description: <textarea class="newTask-input" id="extra-details" type="text" name='description'></textarea></div>
+                    <div class="newTask-field" id="task-extraDetails">imgURL: <input class="newTask-input" id="url" type="text" name='url'></input></div>
+                    <div class="button-container"><button class="confirm sub-button" type='submit'>Confirm</button></div>
+                </form>
+            </div>
+</body>
+</html>
